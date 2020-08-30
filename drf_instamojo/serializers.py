@@ -128,10 +128,9 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
 
         Author: Himanshu Shankar (https://himanshus.com)
         """
-        from instamojo_wrapper import Instamojo
-
-        from django.db.utils import IntegrityError
         from django.contrib.auth import get_user_model
+        from django.db.utils import IntegrityError
+        from instamojo_wrapper import Instamojo
 
         # Extract configuration (Also, it's not required by
         # instamojo_wrapper)
@@ -294,7 +293,7 @@ class PaymentSerializer(serializers.ModelSerializer):
 
         from instamojo_wrapper import Instamojo
 
-        from .models import PaymentRequest, InstamojoConfiguration
+        from .models import InstamojoConfiguration, PaymentRequest
 
         # Initialize required variables
         pr: PaymentRequest = attrs.get("payment_request")

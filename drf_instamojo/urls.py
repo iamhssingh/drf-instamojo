@@ -5,9 +5,7 @@ Author: Himanshu Shankar (https://himanshus.com)
 """
 from django.urls import path
 
-from .views import ListAddPaymentRequestView
-from .views import ListAddPaymentView
-
+from .views import ListAddPaymentRequestView, ListAddPaymentView
 
 app_name = "drf_instamojo"
 

@@ -4,8 +4,7 @@ Handlers for Django Signals
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from drf_instamojo.models import Payment
-from drf_instamojo.models import PaymentRequest
+from drf_instamojo.models import Payment, PaymentRequest
 from drf_instamojo.signals import payment_done
 
 
@@ -19,9 +18,9 @@ def payment_record_handler(instance: Payment, sender, **kwargs):
     :param kwargs: other parameters
     :return: None
     """
-    from drf_instamojo.serializers import PaymentSerializer
-
     from instamojo_wrapper import Instamojo
+
+    from drf_instamojo.serializers import PaymentSerializer
 
     pr: PaymentRequest = instance.payment_request
 

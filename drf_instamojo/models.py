@@ -92,7 +92,7 @@ class PaymentRequest(CreateUpdateModel):
     Author: Himanshu Shankar (https://himanshus.com)
     """
 
-    from .variables import SENT_STATUS_CHOICES, STATUS_CHOICES, PENDING
+    from .variables import PENDING, SENT_STATUS_CHOICES, STATUS_CHOICES
 
     id = models.CharField(
         verbose_name=_("Payment Request ID"), max_length=254, primary_key=True

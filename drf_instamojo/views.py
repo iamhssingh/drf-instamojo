@@ -14,8 +14,8 @@ class ListAddPaymentRequestView(OwnerListCreateAPIView):
     Author: Himanshu Shankar (https://himanshus.com)
     """
 
-    from .serializers import PaymentRequestSerializer
     from .models import PaymentRequest
+    from .serializers import PaymentRequestSerializer
 
     serializer_class = PaymentRequestSerializer
     queryset = PaymentRequest.objects.all()
@@ -28,8 +28,8 @@ class ListAddPaymentView(ListCreateAPIView):
     Author: Himanshu Shankar (https://himanshus.com)
     """
 
-    from .serializers import PaymentSerializer
     from .models import Payment
+    from .serializers import PaymentSerializer
 
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
