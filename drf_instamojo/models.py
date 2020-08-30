@@ -23,8 +23,10 @@ class InstamojoConfiguration(CreateUpdateModel):
     auth_token = models.CharField(
         verbose_name=_("Private Auth Token"), max_length=48, unique=True
     )
-    salt = models.CharField(verbose_name=_("Private Salt"), max_length=48, unique=True)
-    is_active = models.BooleanField(verbose_name=_("Is Active?"), default=False)
+    salt = models.CharField(verbose_name=_(
+        "Private Salt"), max_length=48, unique=True)
+    is_active = models.BooleanField(
+        verbose_name=_("Is Active?"), default=False)
     base_url = models.URLField(
         verbose_name=_("API Based URL"), default="https://www.instamojo.com/api/1.1/"
     )
@@ -112,7 +114,8 @@ class PaymentRequest(CreateUpdateModel):
         verbose_name=_("Buyer Mobile"), max_length=15, null=True, blank=True
     )
 
-    send_email = models.BooleanField(verbose_name=_("Send Mail?"), default=False)
+    send_email = models.BooleanField(
+        verbose_name=_("Send Mail?"), default=False)
     send_sms = models.BooleanField(verbose_name=_("Send SMS?"), default=False)
 
     email_status = models.CharField(
@@ -131,7 +134,8 @@ class PaymentRequest(CreateUpdateModel):
     )
 
     redirect_url = models.URLField(verbose_name=_("Redirect URL"))
-    webhook = models.URLField(verbose_name=_("Webhook URL"), null=True, blank=True)
+    webhook = models.URLField(verbose_name=_(
+        "Webhook URL"), null=True, blank=True)
 
     allow_repeated_payments = models.BooleanField(
         verbose_name=_("Allow Repeated Payment"), default=True
@@ -142,7 +146,8 @@ class PaymentRequest(CreateUpdateModel):
     )
 
     longurl = models.URLField(verbose_name=_("Long URL"))
-    shorturl = models.URLField(verbose_name=_("Long URL"), null=True, blank=True)
+    shorturl = models.URLField(verbose_name=_(
+        "Long URL"), null=True, blank=True)
 
     expires_at = models.CharField(
         verbose_name=_("Expires at"), max_length=30, blank=True, null=True
@@ -157,7 +162,8 @@ class PaymentRequest(CreateUpdateModel):
         on_delete=models.PROTECT,
     )
 
-    is_enabled = models.BooleanField(verbose_name=_("Is Enabled?"), default=True)
+    is_enabled = models.BooleanField(
+        verbose_name=_("Is Enabled?"), default=True)
 
     customer_id = models.CharField(
         verbose_name=_("Customer ID"), max_length=254, null=True, blank=True
@@ -198,7 +204,8 @@ class Payment(models.Model):
     )
 
     payment_request = models.ForeignKey(
-        to=PaymentRequest, on_delete=models.PROTECT, verbose_name=_("Payment Request")
+        to=PaymentRequest, on_delete=models.PROTECT, verbose_name=_(
+            "Payment Request")
     )
     mac = models.CharField(
         verbose_name=_("Message Authentication Code"),

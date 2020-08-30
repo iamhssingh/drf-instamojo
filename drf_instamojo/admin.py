@@ -28,7 +28,8 @@ class PaymentRequestAdmin(CreateUpdateAdmin):
     Author: Himanshu Shankar (https://himanshus.com)
     """
 
-    list_display = ("id", "amount", "purpose", "status", "created_by", "is_enabled")
+    list_display = ("id", "amount", "purpose", "status",
+                    "created_by", "is_enabled")
     search_fields = ("id", "amount", "purpose")
     list_filter = ("status", "is_enabled")
 

@@ -109,7 +109,8 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
         try:
             ic = InstamojoConfiguration.objects.get(is_active=True)
         except InstamojoConfiguration.DoesNotExist:
-            raise APIException(_("No default configuration present in the " "system."))
+            raise APIException(
+                _("No default configuration present in the " "system."))
         attrs["configuration"] = ic
         return attrs
 
@@ -168,7 +169,8 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
             raise APIException(
                 _(
                     "Server error occurred while creating "
-                    "payment request with Instamojo: {err}".format(err=str(err))
+                    "payment request with Instamojo: {err}".format(
+                        err=str(err))
                 )
             )
 
