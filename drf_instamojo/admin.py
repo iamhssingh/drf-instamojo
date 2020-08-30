@@ -5,7 +5,9 @@ Author: Himanshu Shankar (https://himanshus.com)
 """
 from django.contrib import admin
 from drfaddons.admin import CreateUpdateAdmin
-from models import InstamojoConfiguration, Payment, PaymentRequest
+from models import InstamojoConfiguration
+from models import Payment
+from models import PaymentRequest
 
 
 class InstamojoConfigurationAdmin(CreateUpdateAdmin):
