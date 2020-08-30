@@ -53,7 +53,10 @@ def payment_record_handler(instance: Payment, sender, **kwargs):
             try:
                 Payment.objects.get(id=payment.get("payment_id"))
             except Payment.DoesNotExist:
-                ps = PaymentSerializer(data={"id": id, "payment_request": pr.id})
+                ps = PaymentSerializer(data={
+                    "id": id,
+                    "payment_request": pr.id
+                })
                 ps.is_valid(raise_exception=True)
                 ps.save()
 

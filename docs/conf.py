@@ -13,7 +13,6 @@ import sys  # noqa
 
 # sys.path.insert(0, os.path.abspath('.'))
 
-
 # -- Project information -----------------------------------------------------
 
 project = "drf-instamojo"
@@ -52,7 +51,6 @@ templates_path = ["_templates"]
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -66,7 +64,8 @@ html_theme = "alabaster"
 html_static_path = ["_static"]
 
 html_theme_options = {
-    "description": "A package for Instamojo integration in Django REST Framework.",
+    "description":
+    "A package for Instamojo integration in Django REST Framework.",
     "github_banner": "true",
     "github_user": "101loop",
     "github_repo": "drf-instamojo",

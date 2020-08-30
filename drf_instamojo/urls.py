@@ -10,10 +10,9 @@ from .views import ListAddPaymentView
 
 app_name = "drf_instamojo"
 
-
 urlpatterns = [
-    path(
-        "request/", ListAddPaymentRequestView.as_view(), name="List Add Payment Request"
-    ),
+    path("request/",
+         ListAddPaymentRequestView.as_view(),
+         name="List Add Payment Request"),
     path("payment/", ListAddPaymentView.as_view(), name="List Add Payment"),
 ]

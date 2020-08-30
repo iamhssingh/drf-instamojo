@@ -61,8 +61,9 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
         """
         if "phone" not in self.initial_data and value:
             raise serializers.ValidationError(
-                _("Send SMS should be False " "if no phone number is " "given.")
-            )
+                _("Send SMS should be False "
+                  "if no phone number is "
+                  "given."))
         return value
 
     def validate_send_email(self, value):
@@ -86,8 +87,8 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
 
         if "email" not in self.initial_data:
             raise serializers.ValidationError(
-                _("Send Email should be False " "if no email is given.")
-            )
+                _("Send Email should be False "
+                  "if no email is given."))
         return value
 
     def validate(self, attrs):
@@ -109,7 +110,9 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
         try:
             ic = InstamojoConfiguration.objects.get(is_active=True)
         except InstamojoConfiguration.DoesNotExist:
-            raise APIException(_("No default configuration present in the " "system."))
+            raise APIException(
+                _("No default configuration present in the "
+                  "system."))
         attrs["configuration"] = ic
         return attrs
 
@@ -152,34 +155,28 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
                 created_by = user_model.objects.get(pk=id)
             except user_model.DoesNotExist:
                 raise serializers.ValidationError(
-                    _(f"User with ID: {id} does " "not exists.")
-                )
+                    _(f"User with ID: {id} does "
+                      "not exists."))
 
         # Initialize instamojo wrapper
-        imojo = Instamojo(
-            api_key=ic.api_key, auth_token=ic.auth_token, endpoint=ic.base_url
-        )
+        imojo = Instamojo(api_key=ic.api_key,
+                          auth_token=ic.auth_token,
+                          endpoint=ic.base_url)
 
         # Try to create a payment request with processed validated_data
         try:
             response = imojo.payment_request_create(**validated_data)
         except ConnectionError as err:
             raise APIException(
-                _(
-                    "Server error occurred while creating "
-                    "payment request with Instamojo: {err}".format(err=str(err))
-                )
-            )
+                _("Server error occurred while creating "
+                  "payment request with Instamojo: {err}".format(
+                      err=str(err))))
 
         if not response["success"]:
             raise APIException(
-                _(
-                    "Server error occurred while creating "
-                    "payment request with Instamojo: {err}".format(
-                        err=str(response["message"])
-                    )
-                )
-            )
+                _("Server error occurred while creating "
+                  "payment request with Instamojo: {err}".format(
+                      err=str(response["message"]))))
 
         # Make a copy of successful payment_request
         data = response["payment_request"].copy()
@@ -194,7 +191,8 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
 
         # Call super function to save data
         try:
-            return super(PaymentRequestSerializer, self).create(validated_data=data)
+            return super(PaymentRequestSerializer,
+                         self).create(validated_data=data)
 
         # Saving may throw error related to created_by, handle it and
         # throw APIException as this needs to handled at coding level
@@ -299,23 +297,19 @@ class PaymentSerializer(serializers.ModelSerializer):
         pr: PaymentRequest = attrs.get("payment_request")
         ic: InstamojoConfiguration = pr.configuration
 
-        imojo = Instamojo(
-            api_key=ic.api_key, auth_token=ic.auth_token, endpoint=ic.base_url
-        )
+        imojo = Instamojo(api_key=ic.api_key,
+                          auth_token=ic.auth_token,
+                          endpoint=ic.base_url)
 
         # Try to fetch payment status
         try:
             response = imojo.payment_request_payment_status(
-                id=pr.id, payment_id=attrs.get("id")
-            )
+                id=pr.id, payment_id=attrs.get("id"))
         except ConnectionError as err:
             err = str(err)
             raise APIException(
-                _(
-                    f"Server error occurred while getting "
-                    f"payment status from Instamojo: {err}"
-                )
-            )
+                _(f"Server error occurred while getting "
+                  f"payment status from Instamojo: {err}"))
         if not response["success"]:
             # Instamojo server returned with False success flag.
             raise serializers.ValidationError(_("Could not validate payment!"))
@@ -334,7 +328,7 @@ class PaymentSerializer(serializers.ModelSerializer):
             data["failure_message"] = data.get("failure").get("message")
 
         # Convert possible non-str data to str as per model fields
-        non_str_fields = ("payment_request",)
+        non_str_fields = ("payment_request", )
 
         for k, v in data.copy().items():
 

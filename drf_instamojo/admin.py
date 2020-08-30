@@ -28,7 +28,8 @@ class PaymentRequestAdmin(CreateUpdateAdmin):
     Author: Himanshu Shankar (https://himanshus.com)
     """
 
-    list_display = ("id", "amount", "purpose", "status", "created_by", "is_enabled")
+    list_display = ("id", "amount", "purpose", "status", "created_by",
+                    "is_enabled")
     search_fields = ("id", "amount", "purpose")
     list_filter = ("status", "is_enabled")
 
@@ -56,7 +57,7 @@ class PaymentAdmin(admin.ModelAdmin):
         "amount",
         "currency",
     )
-    search_fields = ("id",)
+    search_fields = ("id", )
     list_filter = ("status", "payment_request")
 
     def has_add_permission(self, request):
