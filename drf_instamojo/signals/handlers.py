@@ -39,8 +39,10 @@ def payment_record_handler(instance: Payment, sender, **kwargs):
 
         # Hacky way to fix TypeError here.
         # As instamojo is sending modified_at as str here
-        # We'll convert PaymentRequest's modified_at to str
-        if payment_request_imojo.get("modified_at") > str(pr.modified_at):
+        # We'll use strftime() to format PaymentRequest's modified_at to str
+        if payment_request_imojo.get("modified_at") > (
+            pr.modified_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        ):
             # Update payment request
             pr.status = payment_request_imojo.get("status")
             pr.modified_at = payment_request_imojo.get("modified_at")
